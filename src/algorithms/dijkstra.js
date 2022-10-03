@@ -3,15 +3,14 @@ export function dijkstra(grid, startNode, endNode) {
     startNode.distance = 0;
     const unvisitedNodes = getAllNodes(grid);
     while (!!unvisitedNodes.length) {
-      sortDistance(unvisitedNodes);
-      const closestNode = unvisitedNodes.shift();
-      if (closestNode.isWall) continue;
-
-      if (closestNode.distance === Infinity) return visitedNodesInOrder;
-      closestNode.isVisited = true;
-      visitedNodesInOrder.push(closestNode);
-      if (closestNode === endNode) return visitedNodesInOrder;
-      updateUnvisited(closestNode, grid);
+        sortDistance(unvisitedNodes);
+        const closestNode = unvisitedNodes.shift();
+        if (closestNode.isWall) continue;
+        if (closestNode.distance === Infinity) return visitedNodesInOrder;
+        closestNode.isVisited = true;
+        visitedNodesInOrder.push(closestNode);
+        if (closestNode === endNode) return visitedNodesInOrder;
+        updateUnvisited(closestNode, grid);
     }
   }
   
@@ -22,8 +21,8 @@ export function dijkstra(grid, startNode, endNode) {
   function updateUnvisited(closestnode, grid) {
     const unvisited = getUnvisitedNodes(closestnode, grid);
     for (const x of unvisited) {
-      x.distance = closestnode.distance + 1;
-      x.previousNode = closestnode;
+        x.distance = closestnode.distance + 1;
+        x.previousNode = closestnode;
     }
   }
   
@@ -40,9 +39,9 @@ export function dijkstra(grid, startNode, endNode) {
   function getAllNodes(grid) {
     const nodes = [];
     for (const row of grid) {
-      for (const node of row) {
+        for (const node of row) {
         nodes.push(node);
-      }
+        }
     }
     return nodes;
   }
@@ -52,8 +51,8 @@ export function dijkstra(grid, startNode, endNode) {
     const final = [];
     let currentNode = somenode;
     while (currentNode !== null) {
-      final.unshift(currentNode);
-      currentNode = currentNode.previousNode;
+        final.unshift(currentNode);
+        currentNode = currentNode.previousNode;
     }
     return final;
   }

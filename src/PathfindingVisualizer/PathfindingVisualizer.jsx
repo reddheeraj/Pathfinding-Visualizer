@@ -14,7 +14,26 @@ export default class PathfindingVisualizer extends Component {
     super();
     this.state = {
       grid: [],
+      mousePressed: false,
     };
+  }
+
+  handleMouseDown(row, col) {
+    const newGrid = getGridWithWallToggled(this.state.grid, row, col);
+    this.setState({
+        grid: newGrid,
+        mousePressed: true,
+    });
+  }
+
+  handleMouseEnter(row, col) {
+    if (!this.state.mousePressed) return;
+    const newGrid = getGridWithWallToggled(this.state.grid, row, col);
+    this.setState({grid: newGrid});
+  }
+
+  handleMouseUp() {
+    this.setState({mousePressed: false});
   }
 
   componentDidMount() {
@@ -60,7 +79,7 @@ export default class PathfindingVisualizer extends Component {
   }
 
   render() {
-    const { grid } = this.state;
+    const { grid, mousePressed } = this.state;
 
     return (
       <>
@@ -75,12 +94,19 @@ export default class PathfindingVisualizer extends Component {
                   const {row, col, isFinish, isStart, isWall} = node;
                   return (
                     <Node
-                      key={nodeIdx}
-                      col={col}
-                      isFinish={isFinish}
-                      isStart={isStart}
-                      isWall={isWall}
-                      row={row}></Node>
+                        key={nodeIdx}
+                        col={col}
+                        isFinish={isFinish}
+                        isStart={isStart}
+                        isWall={isWall}
+                        row={row}
+                        mouseIsPressed={mousePressed}
+                        onMouseDown={(row, col) => this.handleMouseDown(row, col)}
+                        onMouseEnter={(row, col) =>
+                            this.handleMouseEnter(row, col) 
+                        }
+                        onMouseUp={() => this.handleMouseUp()}
+                      ></Node>
                   );
                 })}
               </div>
@@ -116,4 +142,15 @@ const createNode = (col, row) => {
     previousNode: null,
   };
 };
+
+const getGridWithWallToggled = (grid, row, col) => {
+    const newGrid = grid.slice();
+    const node = newGrid[row][col];
+    const newNode = {
+        ...node,
+        isWall: !node.isWall,
+    };
+    newGrid[row][col] = newNode;
+    return newGrid;
+}
 

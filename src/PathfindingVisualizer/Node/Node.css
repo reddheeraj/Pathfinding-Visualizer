@@ -1,12 +1,12 @@
 .node {
-    width: 20px;
-    height: 20px;
-    outline: 1px solid grey;
-    display: inline-block;
+    width: 25px;
+  height: 25px;
+  outline: 1px solid rgb(175, 216, 248);
+  display: inline-block;
 }
 
 .node-finish {
-    background-color: hotpink;
+    background-color: red;
 }
 
 .node-start {
@@ -29,17 +29,17 @@
       }
     
       50% {
-        background-color: rgba(17, 104, 217, 0.75);
+        background-color: rgb(209, 100, 100);
       }
     
       75% {
         transform: scale(1.2);
-        background-color: rgba(0, 217, 159, 0.75);
+        background-color: red;
       }
     
       100% {
         transform: scale(1);
-        background-color: rgba(0, 190, 218, 0.75);
+        background-color: hotpink;
       }
 }
 
