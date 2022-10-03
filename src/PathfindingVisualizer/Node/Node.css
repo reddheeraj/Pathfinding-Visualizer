@@ -1,0 +1,65 @@
+.node {
+    width: 20px;
+    height: 20px;
+    outline: 1px solid grey;
+    display: inline-block;
+}
+
+.node-finish {
+    background-color: hotpink;
+}
+
+.node-start {
+    background-color: limegreen;
+}
+
+.node-wall {
+    background-color: rgb(205, 148, 63);
+}
+
+.node-visited {
+    animation: visited 1.5s ease-in-out 0.5s 1 alternate forwards;
+}
+
+@keyframes visited {
+    0% {
+        transform: scale(0.3);
+        background-color: rgba(0, 0, 66, 0.75);
+        border-radius: 100%;
+      }
+    
+      50% {
+        background-color: rgba(17, 104, 217, 0.75);
+      }
+    
+      75% {
+        transform: scale(1.2);
+        background-color: rgba(0, 217, 159, 0.75);
+      }
+    
+      100% {
+        transform: scale(1);
+        background-color: rgba(0, 190, 218, 0.75);
+      }
+}
+
+.node-shortest-path {
+    animation: shortestPath 1.5s ease-in-out 0.5s 1 alternate forwards;
+}
+
+@keyframes shortestPath {
+    0% {
+      transform: scale(0.6);
+      background-color: rgb(255, 254, 106);
+    }
+  
+    50% {
+      transform: scale(1.2);
+      background-color: rgb(255, 254, 106);
+    }
+  
+    100% {
+      transform: scale(1);
+      background-color: rgb(255, 254, 106);
+    }
+  }
