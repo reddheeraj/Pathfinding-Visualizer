@@ -1,0 +1,19 @@
+.navbar {
+    background-color: #45B69C;
+    width: 100%;
+    height: 40px;
+    display: flex;
+}
+
+.navbar .logo {
+    font-size: 1.5em;
+    justify-content: left;
+    display: flex;
+    align-items: center;
+    color: white;
+    margin-left: 10px;
+}
+
+.navbar .logo h3:hover {
+    color: black;
+}
