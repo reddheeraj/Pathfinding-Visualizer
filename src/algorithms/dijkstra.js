@@ -2,7 +2,7 @@ export function dijkstra(grid, startNode, endNode) {
     const visitedNodesInOrder = [];
     startNode.distance = 0;
     const unvisitedNodes = getAllNodes(grid);
-    while (!!unvisitedNodes.length) {
+    while (unvisitedNodes.length !== 0) {
         sortDistance(unvisitedNodes);
         const closestNode = unvisitedNodes.shift();
         if (closestNode.isWall) continue;

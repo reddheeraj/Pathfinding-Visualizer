@@ -9,7 +9,7 @@ function Navbar() {
                 window.location.reload()
             }
         }>
-          <h3>Pathfinding Visualizer</h3>
+          <h3>Pathfinding Visualizer (click here)</h3>
         </div>
     </div>
   )

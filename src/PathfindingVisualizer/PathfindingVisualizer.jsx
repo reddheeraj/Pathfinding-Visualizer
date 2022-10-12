@@ -5,6 +5,7 @@ import './PathfindingVisualizer.css';
 import Navbar from '../components/Navbar';
 import randomMaze from '../algorithms/randomMaze';
 import { verticalMaze } from '../algorithms/VerticalMaze';
+import { bfs, finalthingbfs } from '../algorithms/bfs';
 
 const getRandomStartRow = () => {
   const row = Math.floor(Math.random() * 20);
@@ -108,6 +109,35 @@ export default class PathfindingVisualizer extends Component {
     });
   }
 
+  animateBFS(visitedNodes, final) {
+    let defGrid = this.state.grid.slice();
+    for (let row of defGrid) {
+      for (let node of row) {
+        let newNode = {
+          ...node,
+          isVisited: false,
+        };
+        defGrid[node.row][node.col] = newNode;
+      }
+    }
+    this.setState({
+      grid: defGrid,
+    });
+    for (let i = 1; i <= visitedNodes.length; i++) {
+      if (i === visitedNodes.length) {
+        setTimeout(() => {
+          this.animatefinalpath(final);
+        }, 10 * i);
+        return;
+      }
+
+      setTimeout(() => {
+        const node = visitedNodes[i];
+        document.getElementById(`node-${node.row}-${node.col}`).className = 'node node-visited';
+      }, 10 * i);
+    }
+  }
+
   animateDijkstra(visitedNodes, final) {
     for (let i = 0; i <= visitedNodes.length; i++) {
       if (i === visitedNodes.length) {
@@ -148,6 +178,19 @@ export default class PathfindingVisualizer extends Component {
     const visitedNodes = dijkstra(grid, start, end);
     const final = finalthing(end);
     this.animateDijkstra(visitedNodes, final);
+  }
+
+  visualizeBFS() {
+    if (this.state.generatingMaze || this.state.visualizingAlgorithm) return;
+    this.setState({
+      visualizingAlgorithm: true,
+    });
+    const {grid} = this.state;
+    const start = grid[START_NODE_ROW][START_NODE_COL];
+    const end = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
+    const visitedNodes = bfs(grid, start, end);
+    const final = finalthingbfs(end);
+    this.animateBFS(visitedNodes, final);
   }
 
   animateMaze(walls) {
@@ -204,13 +247,14 @@ export default class PathfindingVisualizer extends Component {
         <button onClick={() => this.visualizeDijkstra()}>
           Visualize Dijkstra's Algorithm
         </button>
-        <button onClick={() =>  
+        <button onClick={() => this.visualizeBFS()}>Visualize BFS</button>
+        <button id='clear' onClick={() =>  
         this.clearGrid()
         }>Clear Grid</button>
-        <button onClick={() => this.generateRandomMaze()}>
+        <button id ='maze' onClick={() => this.generateRandomMaze()}>
           Generate Random Maze
         </button>
-        <button onClick={() => this.gernerateVerticalMaze()}>
+        <button id='maze' onClick={() => this.gernerateVerticalMaze()}>
           Generate Vertical Maze
         </button>
         <div className="grid">
